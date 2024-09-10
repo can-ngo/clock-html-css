@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Clock</title>
+</head>
+<body>
+    <h1>c4nng0 Clock</h1>
+    <div class="digital-clock"></div>
+    <script>
+        ;(function(){
+            const digitalClock = document.querySelector('.digital-clock');
+            let time = new Date();
+            let [ year, month, day, hour, minute, second ] = [ 
+                        time.getFullYear(), 
+                        time.getMonth()+1, 
+                        time.getDate(),
+                        String(time.getHours()).padStart(2, '0'),
+                        String(time.getMinutes()).padStart(2, '0'),
+                        String(time.getSeconds()).padStart(2, '0') 
+                    ]
+
+            digitalClock.innerHTML = 
+            `
+                <h3>
+                    Ngày ${day} Tháng ${month} Năm ${year}   
+                 </h3>
+                 <h3>
+                    ${hour} : ${minute} : ${second}
+                 </h3>
+            `
+
+            setInterval( myFunc = () => { 
+                let hour = String(new Date().getHours()).padStart(2, '0');
+                let minute = String(new Date().getMinutes()).padStart(2, '0');
+                let second = String(new Date().getSeconds()).padStart(2, '0');
+                let day = new Date().getDate();
+                let month = new Date().getMonth()  + 1;
+                let year = new Date().getFullYear();
+
+                digitalClock.innerHTML = 
+                `<h3>
+                    Ngày ${day} Tháng ${month} Năm ${year}   
+                 </h3>
+                 <h3>
+                    ${hour} : ${minute} : ${second}
+                 </h3>
+                 `
+             
+            }, 1000)
+        })()     
+    </script>
+    
+    <div class="clock-box">
+        <div class="clock-center">
+            <div class="hand-second"></div>
+            <div class="hand-minute"></div>
+            <div class="hand-hour"></div>
+        </div>
+        <div class="_1">1</div>
+        <div class="_2">2</div>
+        <div class="_3">3</div>
+        <div class="_4">4</div>
+        <div class="_5">5</div>
+        <div class="_6">6</div>
+        <div class="_7">7</div>
+        <div class="_8">8</div>
+        <div class="_9">9</div>
+        <div class="_10">10</div>
+        <div class="_11">11</div>
+        <div class="_12">12</div>
+        <div class="line-1"></div>
+        <div class="line-2"></div>
+        <div class="line-3"></div>
+        <div class="line-4"></div>
+        
+    </div>
+    <script>
+
+        ;(function(){
+            let hour = new Date().getHours();
+            let minute = new Date().getMinutes();
+            let second = new Date().getSeconds();
+
+            const secondHand = document.querySelector('.hand-second');
+            secondHand.animate(
+                [
+                    { transform: `rotate(${(second) * 6 + 270}deg)`},
+                    { transform: `rotate(${(second) * 6 + 270 + 360}deg)` }
+                ],
+                {
+                    duration: 60000, //60s
+                    iterattions: Infinity
+                }
+            )
+            
+            const minuteHand = document.querySelector('.hand-minute');
+            minuteHand.animate(
+                [
+                    { transform: `rotate(${(minute + 1) * 6 + 270}deg)`},
+                    { transform: `rotate(${(minute + 1) * 6 + 270 + 360}deg)` }
+                ],
+                {
+                    duration: 3600000, //60s
+                    iterattions: Infinity
+                }
+            )
+
+            const hourHand = document.querySelector('.hand-hour');
+            hourHand.animate(
+                [
+                    { transform: `rotate(${(hour % 12) * 30 + 270}deg)`},
+                    { transform: `rotate(${(hour % 12) * 30 + 270 + 360}deg)`}
+                ],
+                {
+                    duration: 216000000 / 2,
+                    iterations: Infinity
+                }
+            )
+        })()
+
+    </script>
+</body>
+</html>
